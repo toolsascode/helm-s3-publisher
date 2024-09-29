@@ -20,6 +20,12 @@ jobs:
         run: go get ./cmd/helm-s3-publisher
       - name: Build
         run: go build -o helm-s3-publisher -v ./cmd/helm-s3-publisher
+      - name: Installing Helm
+        uses: azure/setup-helm@v4
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Helm Installing Plugin
+        run: helm plugin install https://github.com/hypnoglow/helm-s3.git
       - name: Test with the Go CLI
         run: |
           go test -coverprofile=coverage.out -cover ./... && go tool cover -html=coverage.out -o coverage.html
