@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 jobs:
-  unit_tests:
+  testing:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,26 +32,6 @@ jobs:
 
       - name: Test with the Go CLI
         run: |
-          go test -cover -coverprofile=coverage.out ./...
+          go test -coverprofile=coverage.out -cover ./... && go tool cover -html=coverage.out -o coverage.html
           cat coverage.out >> $GITHUB_STEP_SUMMARY
   
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: coverage.out
-
-  coverage:
-    name: "Code Coverage report"
-    # if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    needs: unit_tests
-    permissions:
-      contents:      read
-      actions:       read 
-      # pull-requests: write # write permission needed to comment on PR
-    steps:
-      - uses: fgrosse/go-coverage-report@v1.2.0
-        with:
-          coverage-artifact-name: "coverage"
-          coverage-file-name: "coverage.out"
