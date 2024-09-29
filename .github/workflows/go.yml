@@ -21,8 +21,6 @@ jobs:
       - name: Build
         run: go build -o helm-s3-publisher -v ./cmd/helm-s3-publisher
       - name: Test with the Go CLI
-        id: gotest
         run: |
-          make test
-
+          go test -coverprofile=coverage.out -cover ./... && go tool cover -html=coverage.out -o coverage.html
   
