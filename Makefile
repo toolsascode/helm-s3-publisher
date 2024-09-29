@@ -10,15 +10,17 @@ all: help
 # dev:
 # 	docker compose -f ./example/compose.yaml up --remove-orphans
 
+.PHONY: lint
+lint:
+	golangci-lint run ./...
+
 .PHONY: dist-test
 dist-test:
-	golangci-lint run ./...
 	export GPG_FINGERPRINT=$(gpg --list-secret-keys --keyid-format=long | grep --only-matching --extended-regexp "[[:xdigit:]]{40}")
 	goreleaser --snapshot --clean --skip=publish
 
 .PHONY: test
 test:
-	golangci-lint run ./...
 	go test -coverprofile=coverage.out -cover ./... && go tool cover -html=coverage.out -o coverage.html
 
 .PHONY: docs

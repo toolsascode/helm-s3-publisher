@@ -5,7 +5,7 @@ import (
 )
 
 func TestMetadata(t *testing.T) {
-	if chart := ChartVersion("./"); chart == nil {
+	if chart := ChartVersion("."); chart == nil {
 		t.Fatalf(`Search %v, want "", error`, "Empty")
 	}
 }

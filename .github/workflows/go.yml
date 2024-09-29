@@ -26,6 +26,10 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: Helm Installing Plugin
         run: helm plugin install https://github.com/hypnoglow/helm-s3.git
+      - name: Helm Repository Testing
+        run: |
+         helm repo add argo https://argoproj.github.io/argo-helm
+
       - name: Test with the Go CLI
         run: |
           go test -coverprofile=coverage.out -cover ./... && go tool cover -html=coverage.out -o coverage.html
