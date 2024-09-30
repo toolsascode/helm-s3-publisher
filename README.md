@@ -27,6 +27,12 @@ helm plugin install https://github.com/toolsascode/helm-s3-publisher.git --versi
 curl -fLSs https://raw.githubusercontent.com/toolsascode/helm-s3-publisher/main/scripts/install.sh | bash
 ```
 
+Or
+
+```shell
+curl -fLSs https://raw.githubusercontent.com/toolsascode/helm-s3-publisher/main/scripts/install.sh | sudo bash
+```
+
 ### Go Install
 
 ```shell
