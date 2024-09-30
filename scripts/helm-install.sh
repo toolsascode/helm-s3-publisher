@@ -63,9 +63,8 @@ getOS() {
 onExit() {
     exit_code=$?
     if [ ${exit_code} -ne 0 ]; then
-        echo "${PROJECT_NAME} install hook failed. Please remove the plugin using 'helm plugin remove s3' and install again." >/dev/stderr
+        echo "${PROJECT_NAME} install hook failed. Please remove the plugin using 'helm plugin remove s3-publisher' and install again." >/dev/stderr
     fi
-    rm -rf "releases"
     # Delete the working directory when the install was successful.
     rm -r "$SCRATCH"
     exit ${exit_code}
@@ -79,7 +78,7 @@ echo "Downloading and installing ${PROJECT_NAME} v${version} ..."
 getArch
 getOS
 
-RELEASE_URL="${GITHUB_BASE_URL}/releases/download/v${version}/${PROJECT_NAME}_${version}_${os}_${arch}.tar.gz"
+RELEASE_URL="${GITHUB_BASE_URL}/releases/download/v${version}/${PROJECT_NAME}_${os}_${arch}.tar.gz"
 CHECKSUM_URL="${GITHUB_BASE_URL}/releases/download/v${version}/${PROJECT_NAME}_${version}_checksums.txt"
 
 cd "$SCRATCH"
