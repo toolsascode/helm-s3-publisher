@@ -1,5 +1,5 @@
 name: "s3-publisher"
-version: "1.0.0"
+version: "1.0.0-beta"
 usage: "The Helm S3 Publisher project makes it easy to publish new releases to the AWS S3 Bucket."
 description: |-
   Helm S3 Publisher is a project to help with the process of publishing new releases for charts. https://github.com/toolsascode/helm-s3-publisher
