@@ -28,12 +28,15 @@ getArch() {
     arch=$(uname -m)
 
     case $arch in
-    x86_64 | amd64)
-        arch="amd64"
-        ;;
-    aarch64 | arm64)
-        arch="arm64"
-        ;;
+	aarch64 | arm64)
+		arch='arm64'
+		;;
+	x86_64|amd64)
+		arch="x86_64"
+		;;
+  	i386)
+		arch="i386"
+		;;
     *)
         echo "Arch '$(uname -m)' not supported!" >&2
         exit 1
