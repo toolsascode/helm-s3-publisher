@@ -81,8 +81,8 @@ function run {
 	getOS
 	getArch
 
-	RELEASE_URL="${GITHUB_BASE_URL}/releases/download/v${VERSION}/${PROJECT_NAME}_${os}_${arch}.tar.gz"
-	CHECKSUM_URL="${GITHUB_BASE_URL}/releases/download/v${VERSION}/${PROJECT_NAME}_${version}_checksums.txt"
+	RELEASE_URL="${GITHUB_BASE_URL}/releases/download/v${VERSION}/${PROJECT_NAME}_${OS}_${ARCH}.tar.gz"
+	CHECKSUM_URL="${GITHUB_BASE_URL}/releases/download/v${VERSION}/${PROJECT_NAME}_${VERSION}_checksums.txt"
 
 	mkdir "releases"
 	RELEASE_FILENAME="releases/v${VERSION}.tar.gz"
