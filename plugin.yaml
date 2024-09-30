@@ -5,5 +5,5 @@ description: |-
   Helm S3 Publisher is a project to help with the process of publishing new releases for charts. https://github.com/toolsascode/helm-s3-publisher
 command: "$HELM_PLUGIN_DIR/bin/helm-s3-publisher"
 hooks:
-  install: "cd $HELM_PLUGIN_DIR; ./scripts/helm-install.sh"
-  update: "cd $HELM_PLUGIN_DIR; ./scripts/helm-install.sh"
+  install: "cd $HELM_PLUGIN_DIR; scripts/helm-install-plugin.sh"
+  update: "cd $HELM_PLUGIN_DIR; scripts/helm-install-plugin.sh"

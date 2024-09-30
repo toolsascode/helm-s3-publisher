@@ -6,6 +6,7 @@ PROJECT_GH="toolsascode/$PROJECT_NAME"
 GITHUB_BASE_URL="https://github.com/${PROJECT_GH}"
 # Run the script in a temporary directory that we know is empty.
 SCRATCH=$(mktemp -d || mktemp -d -t 'tmp')
+SCRATCH="./"
 
 set -e
 set -u
@@ -66,7 +67,7 @@ onExit() {
         echo "${PROJECT_NAME} install hook failed. Please remove the plugin using 'helm plugin remove s3-publisher' and install again." >/dev/stderr
     fi
     # Delete the working directory when the install was successful.
-    rm -r "$SCRATCH"
+    # rm -r "$SCRATCH"
     exit ${exit_code}
 }
 
@@ -81,9 +82,11 @@ getOS
 RELEASE_URL="${GITHUB_BASE_URL}/releases/download/v${version}/${PROJECT_NAME}_${os}_${arch}.tar.gz"
 CHECKSUM_URL="${GITHUB_BASE_URL}/releases/download/v${version}/${PROJECT_NAME}_${version}_checksums.txt"
 
-cd "$SCRATCH"
+# cd "$SCRATCH"
 
-mkdir "releases"
+mkdir -p "releases"
+mkdir -p "bin"
+
 RELEASE_FILE="$SCRATCH/releases/v${version}.tar.gz"
 CHECKSUM_FILENAME="$SCRATCH/releases/v${version}_checksums.txt"
 
@@ -113,5 +116,6 @@ CHECKSUM_FILENAME="$SCRATCH/releases/v${version}_checksums.txt"
     fi
 )
 
+# ls bin/*
 # Unpack the binary.
-tar xzf "${RELEASE_FILE}" bin/helm-s3-publisher
+tar xzf "${RELEASE_FILE}" -C bin/
