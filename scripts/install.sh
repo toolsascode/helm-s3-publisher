@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # Install the Helm S3 Publisher CLI tool.
-# https://github.com/toolsascode/${PROJECT_NAME}
+# https://github.com/toolsascode/helm-s3-publisher
 #
 # Dependencies: curl, cut
 #
 # The version to install and the binary location can be passed in via VERSION and DESTDIR respectively.
-# curl -fLSs https://raw.githubusercontent.com/toolsascode/${PROJECT_NAME}/main/scripts/install.sh | bash
+# curl -fLSs https://raw.githubusercontent.com/toolsascode/helm-s3-publisher/main/scripts/install.sh | bash
 #
 
 PROJECT_NAME="helm-s3-publisher"
@@ -81,8 +81,8 @@ function run {
 	getOS
 	getArch
 
-	RELEASE_URL="${GITHUB_BASE_URL}/releases/download/v${VERSION}/${PROJECT_NAME}_${VERSION}_${OS}_${ARCH}.tar.gz"
-	CHECKSUM_URL="${GITHUB_BASE_URL}/releases/download/v${VERSION}/${PROJECT_NAME}_${VERSION}_checksums.txt"
+	RELEASE_URL="${GITHUB_BASE_URL}/releases/download/v${VERSION}/${PROJECT_NAME}_${os}_${arch}.tar.gz"
+	CHECKSUM_URL="${GITHUB_BASE_URL}/releases/download/v${VERSION}/${PROJECT_NAME}_${version}_checksums.txt"
 
 	mkdir "releases"
 	RELEASE_FILENAME="releases/v${VERSION}.tar.gz"

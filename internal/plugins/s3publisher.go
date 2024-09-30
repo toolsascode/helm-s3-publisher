@@ -6,13 +6,24 @@ import (
 	"os/exec"
 
 	log "github.com/sirupsen/logrus"
+	"github.com/toolsascode/helm-s3-publisher/internal/helpers"
 	"helm.sh/helm/v3/pkg/chart"
 )
 
-func S3Publisher(chart *chart.Metadata, chartPath, chartRepo, chartOutput string, _ ...string) error {
+func S3Publisher(chart *chart.Metadata, chartPath, chartRepo, chartOutput string, args ...string) error {
+
+	listArgs := helpers.MergeArgs(
+		[]string{
+			"s3",
+			"push",
+			fmt.Sprintf("%s/%s-%s.tgz", chartOutput, chart.Name, chart.Version),
+			chartRepo},
+		args...)
+
+	log.Debugf("helpers.MergeArgs: %#v", listArgs)
 
 	log.Infof("The chart publishing process has started:\nName: %s\nVersion: %s\nRepository: %s\nLocated at: %s", chart.Name, chart.Version, chartRepo, chartPath)
-	out, err := exec.Command("helm", "s3", "push", fmt.Sprintf("%s/%s-%s.tgz", chartOutput, chart.Name, chart.Version), chartRepo).Output()
+	out, err := exec.Command("helm", listArgs...).Output()
 	if errors.Is(err, exec.ErrDot) {
 		log.Fatal(err, out)
 		return err

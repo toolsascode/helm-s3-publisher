@@ -56,30 +56,36 @@ func (c *Commands) chartPakacge(chartPath string) {
 	var (
 		chartOutput = viper.GetString("output.path")
 		chartRepo   = viper.GetString("chart.repo")
+		s3Force     = viper.GetBool("helm.s3.force")
+		argForce    = ""
 	)
 
 	m := helm.ChartVersion(chartPath)
 
-	if err := helm.Search(m.Name, m.Version); err != nil {
+	found, err := helm.Search(m.Name, m.Version)
+	if err != nil {
 		log.Fatalln(err)
-		// os.Exit(1)
 	}
+
+	if found && !s3Force {
+		log.Warnf("Skipping :: The Helm Chart %s and %s version already exists!", m.Name, m.Version)
+		return
+	}
+
 	if err := helm.Package(m, chartPath, chartOutput); err != nil {
 		log.Fatalln(err)
-		// os.Exit(1)
 	}
-	if err := plugins.S3Publisher(m, chartPath, chartRepo, chartOutput); err != nil {
+
+	if s3Force {
+		argForce = "--force"
+	}
+
+	if err := plugins.S3Publisher(m, chartPath, chartRepo, chartOutput, argForce); err != nil {
 		log.Fatalln(err)
-		// os.Exit(1)
 	}
 }
 
 func (c *Commands) gitLsTree(paths []string) []string {
-
-	// if !viper.GetBool("git.lsTree") {
-	// 	log.Infoln("Git LS Tree is not enabled!!!")
-	// 	return []string{}
-	// }
 
 	log.Infoln("Git LS Tree is enabled!!!")
 

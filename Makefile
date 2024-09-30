@@ -29,7 +29,7 @@ docs:
 
 .PHONY: run
 run:
-	go run $(GOBASE)/cmd/helm-s3-publisher argo /Users/carlosjunior/projects/helm-charts --git-ls-tree --exclude-paths ".git, .github" --log-level debug
+	go run $(GOBASE)/cmd/helm-s3-publisher argo /Users/carlosjunior/projects/helm-charts --force --git-ls-tree --exclude-paths ".git, .github" --log-level debug
 
 
 .PHONY: build

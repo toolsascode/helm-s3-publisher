@@ -15,11 +15,11 @@ type searchResult struct {
 	Description string `json:"description"`
 }
 
-func Search(keyword, version string) error {
+func Search(keyword, version string) (bool, error) {
 	out, err := exec.Command("helm", "search", "repo", keyword, "--version", version, "--output", "json").Output()
 	if errors.Is(err, exec.ErrDot) {
 		log.Fatal(err, out)
-		return err
+		return false, err
 	}
 
 	var s []searchResult
@@ -27,17 +27,18 @@ func Search(keyword, version string) error {
 	err = json.Unmarshal(out, &s)
 	if err != nil {
 		log.Fatal(err)
-		return err
+		return false, err
 	}
 
 	if len(s) > 0 {
 		log.Warnf("[NOk] Helm Chart %s and %s version found!", keyword, version)
 		log.Warnf("[NOk] The %s version of the %s chart already exists and it was not possible to continue publishing it!", version, keyword)
 		log.Warnln("[NOk] If you want to continue publishing the chart anyway, re-execute the command adding the `--force` flag.")
-	} else {
-		log.Infof("[Ok] Helm Chart %s and %s version, not found!", keyword, version)
-		log.Infof("[Ok] We will continue with the publication of the new version of the %s chart.", keyword)
+		return true, nil
 	}
 
-	return nil
+	log.Infof("[Ok] Helm Chart %s and %s version, not found!", keyword, version)
+	log.Infof("[Ok] We will continue with the publication of the new version of the %s chart.", keyword)
+
+	return false, nil
 }
