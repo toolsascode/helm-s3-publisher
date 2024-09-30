@@ -115,7 +115,7 @@ function run {
 	)
 
 	# Download & unpack the release tarball.
-	tar zx --strip 1 "${RELEASE_FILENAME}" ./releases/
+	tar xzf "${RELEASE_FILENAME}" -C ./releases/
 
 	echo "Installing to $DESTDIR"
 	install "./releases/${PROJECT_NAME}" "$DESTDIR"
