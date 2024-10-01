@@ -52,8 +52,11 @@ function getArch() {
 	aarch64 | arm64)
 		ARCH='arm64'
 		;;
-	x86_64)
-		ARCH="amd64"
+	x86_64|amd64)
+		ARCH="x86_64"
+		;;
+  	i386)
+		ARCH="i386"
 		;;
 	*)
 		echo "This architecture is not supported."
