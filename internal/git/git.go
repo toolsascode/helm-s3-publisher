@@ -32,7 +32,7 @@ func LsTree(path string) []string {
 
 	lines := string(out)
 	list := regexp.MustCompile("\r?\n").Split(lines, -1)
-	excludePaths := helpers.GetExcludePaths(viper.GetStringSlice("exclude.paths"))
+	excludePaths := helpers.GetExcludePaths(viper.GetStringSlice("git.exclude.paths"))
 
 	for _, v := range list {
 
@@ -58,7 +58,7 @@ func LsTree(path string) []string {
 		}
 	}
 
-	log.Debugf("LsTree: %#v", listPaths)
+	log.Tracef("LsTree: %#v", listPaths)
 
 	return listPaths
 }
@@ -72,6 +72,6 @@ func MergeLsTree(paths []string) []string {
 			listPaths = append(listPaths, LsTree(v)...)
 		}
 	}
-	log.Debugf("MergeLsTree: %#v", listPaths)
+	log.Tracef("MergeLsTree: %#v", listPaths)
 	return listPaths
 }

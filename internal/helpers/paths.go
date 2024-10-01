@@ -39,7 +39,7 @@ func GetExcludePaths(list []string) map[string]bool {
 		}
 	}
 
-	log.Debugf("GetExcludePaths: %#v", items)
+	log.Tracef("GetExcludePaths: %#v", items)
 
 	return items
 }

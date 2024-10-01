@@ -29,3 +29,5 @@ coverage.html
 manpages
 dist
 /helm-s3-publisher
+/helm-s3-publisher.txt
+/helm-s3-publisher.json

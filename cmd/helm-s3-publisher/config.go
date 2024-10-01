@@ -35,8 +35,13 @@ func initConfig() {
 
 	} else {
 		log.SetFormatter(&log.TextFormatter{
-			DisableColors: false,
+			ForceColors:   true,
 			FullTimestamp: true,
+			FieldMap: log.FieldMap{
+				"FieldKeyTime":  "@timestamp",
+				"FieldKeyLevel": "@level",
+				"FieldKeyMsg":   "@message",
+			},
 		})
 	}
 

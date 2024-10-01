@@ -6,6 +6,7 @@ import (
 	"os"
 
 	log "github.com/sirupsen/logrus"
+	"github.com/toolsascode/helm-s3-publisher/internal/helpers"
 	"github.com/toolsascode/helm-s3-publisher/pkg/publisher"
 
 	mango "github.com/muesli/mango-cobra"
@@ -16,7 +17,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:     "helm-s3-publiher REPO [PATHS]",
+	Use:     "helm-s3-publisher REPO [PATHS]",
 	Version: getVersion(),
 	Short:   "Helm S3 Publisher is a project to help with the process of publishing new releases for charts.",
 	Long: `
@@ -34,10 +35,11 @@ Ideal for automating pipelines and follows these steps:
 
 $ helm s3-publisher REPO [CHART PATHS] [flags]
 
-- REPO 	=> (Required)
+
+- **REPO** => (Required)
 	Repository for searching and publishing the new version of the chart.
 
-- CHART PATHS => (Optional and Default: . ) 
+- **CHART PATHS** => (Optional and Default: . ) 
 	List of charts directories separated by commas.
 	If the Git LS Tree feature is enabled, the CLI will attempt to identify all changed chart directories indicated in the PATHS parameter.
 	Example: "dir-chart-1,dir-chart-2"
@@ -45,12 +47,13 @@ $ helm s3-publisher REPO [CHART PATHS] [flags]
 Complete documentation is available at https://github.com/toolsascode/helm-s3-publisher
 	
 	`,
-	Args: func(_ *cobra.Command, args []string) error {
+	Args: func(cmd *cobra.Command, args []string) error {
 
-		if len(args) < 1 {
+		if err := cobra.MinimumNArgs(1)(cmd, args); err != nil {
 			log.Errorln("Repository name is required!!!")
 			return errors.New("it is necessary to provide at least the name of the helm chart repository")
 		}
+
 		viper.Set("chart.repo", args[0])
 
 		if len(args) == 2 {
@@ -59,7 +62,7 @@ Complete documentation is available at https://github.com/toolsascode/helm-s3-pu
 			viper.Set("chart.paths", ".")
 		}
 
-		log.Infof("%#v", args)
+		log.Tracef("%#v", args)
 		log.Infof("Repo: %s and Paths: %s", viper.Get("chart.repo"), viper.Get("chart.paths"))
 
 		return nil
@@ -99,11 +102,8 @@ var docsCmd = &cobra.Command{
 
 		var path = "./docs"
 
-		if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
-			err := os.Mkdir(path, os.ModePerm)
-			if err != nil {
-				log.Fatal(err)
-			}
+		if err := helpers.CreateDir(path); err != nil {
+			log.Fatal(err)
 		}
 
 		log.Info("Generating markdown documentation")

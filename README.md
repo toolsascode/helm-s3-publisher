@@ -68,3 +68,7 @@ helm s3-publisher REPO [CHART PATHS] [flags]
 |---     | :---:       |---          |
 **REPO** | Yes | _(Required)_ Repository for searching and publishing the new version of the chart. |
 **CHART PATHS** | No | _(Optional and Default: . )_ List of charts directories separated by commas. If the **Git LS Tree** feature is enabled, the CLI will attempt identify all changed chart directories indicated in the `PATHS` parameter. **Example:** _"dir-chart-1,dir-chart-2"_ |
+
+## SEE ALSO
+
+- [helm-s3-publisher](docs/helm-s3-publisher.md) - All available CLI options
