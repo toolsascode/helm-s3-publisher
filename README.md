@@ -69,13 +69,17 @@ helm s3-publisher REPO [CHART PATHS] [flags]
 1. In this first example, the CLI will search for directories of the changed charts and publish them to the repository automatically. Since in this case we chose to use the Git Ls Tree feature, it is good practice to exclude paths that should not be processed and avoid failures. At the end, a JSON file will be generated with all interactions performed, published or not.
 
 ```shell
-helm s3-publisher myrepo /path/to/helm-charts --git-ls-tree --exclude-paths ".git, .github" --log-level debug --report json
+helm s3-publisher myrepo /path/to/helm-charts \
+--git-ls-tree --exclude-paths ".git, .github" \
+--log-level debug --report json
 ```
 
 2. In the following example, we inform exactly which chart(s) were manually changed.
 
 ```shell
-helm s3-publisher myrepo /path/to/helm-charts/chart1,/path/to/helm-charts/chart2 --log-level debug --report json
+helm s3-publisher myrepo \
+/path/to/helm-charts/chart1,/path/to/helm-charts/chart2 \
+--log-level debug --report json
 ```
 
 | Inputs | Required | Description |
