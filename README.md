@@ -18,7 +18,7 @@ helm plugin install https://github.com/toolsascode/helm-s3-publisher.git
 or
 
 ```shell
-helm plugin install https://github.com/toolsascode/helm-s3-publisher.git --version 1.0.0
+helm plugin install https://github.com/toolsascode/helm-s3-publisher.git --version 1.1.0-beta
 ```
 
 ### Binary via Github
