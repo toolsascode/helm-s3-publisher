@@ -79,6 +79,7 @@ func (c *Commands) chartPakacge(chartPath string) {
 
 	reportChart.ChartName = m.Name
 	reportChart.ChartVersion = m.Version
+	reportChart.GitLsTree = viper.GetBool("git.lsTree")
 
 	found, err := helm.Search(m.Name, m.Version)
 	if err != nil {
@@ -94,6 +95,7 @@ func (c *Commands) chartPakacge(chartPath string) {
 	reportChart.Published = true
 
 	if err := helm.Package(m, chartPath, chartOutput); err != nil {
+		reportChart.Published = false
 		log.Fatalln(err)
 	}
 
@@ -111,6 +113,7 @@ func (c *Commands) chartPakacge(chartPath string) {
 
 	if !dryRun {
 		if err := plugins.S3Publisher(m, chartPath, chartRepo, chartOutput, argForce); err != nil {
+			reportChart.Published = false
 			log.Fatalln(err)
 		}
 	} else {
