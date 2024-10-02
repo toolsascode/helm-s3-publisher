@@ -26,8 +26,10 @@ go.work.sum
 
 **.tgz
 coverage.html
-manpages
-dist
+**/outputs
+**/completions
+**/dist
+**/manpages
 /helm-s3-publisher
 /helm-s3-publisher.txt
 /helm-s3-publisher.json
