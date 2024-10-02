@@ -75,7 +75,7 @@ helm s3-publisher myrepo /path/to/helm-charts --git-ls-tree --exclude-paths ".gi
 2. In the following example, we inform exactly which chart(s) were manually changed.
 
 ```shell
-helm s3-publisher myrepo /path/to/helm-charts/chart1,/path/to/helm-charts/chart1 --log-level debug --report json
+helm s3-publisher myrepo /path/to/helm-charts/chart1,/path/to/helm-charts/chart2 --log-level debug --report json
 ```
 
 | Inputs | Required | Description |
