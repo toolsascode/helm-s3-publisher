@@ -1,5 +1,5 @@
 # helm-s3-publisher 
-[![Go Reference](https://pkg.go.dev/badge/github.com/toolsascode/helm-s3-publisher.svg)](https://pkg.go.dev/github.com/toolsascode/helm-s3-publisher) [![Testing](https://github.com/toolsascode/helm-s3-publisher/actions/workflows/go.yml/badge.svg)](https://github.com/toolsascode/helm-s3-publisher/actions/workflows/go.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/toolsascode/helm-s3-publisher.svg)](https://pkg.go.dev/github.com/toolsascode/helm-s3-publisher) [![Testing](https://github.com/toolsascode/helm-s3-publisher/actions/workflows/go.yml/badge.svg)](https://github.com/toolsascode/helm-s3-publisher/actions/workflows/go.yml) [![Published Versions](https://github.com/toolsascode/helm-s3-publisher/actions/workflows/releaser.yml/badge.svg)](https://github.com/toolsascode/helm-s3-publisher/actions/workflows/releaser.yml)
 
 Helm S3 Publisher is a small project with the purpose of helping in the process of publishing new helm charts using the helm s3 plugin already known by the community.
 
