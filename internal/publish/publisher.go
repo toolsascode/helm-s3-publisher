@@ -80,6 +80,8 @@ func (c *Commands) chartPakacge(chartPath string) {
 	reportChart.ChartName = m.Name
 	reportChart.ChartVersion = m.Version
 	reportChart.GitLsTree = viper.GetBool("git.lsTree")
+	reportChart.Force = s3Force
+	reportChart.ChartURL = fmt.Sprintf("s3://%s/%s-%s.tgz", chartRepo, m.Name, m.Version)
 
 	found, err := helm.Search(m.Name, m.Version)
 	if err != nil {
@@ -88,7 +90,9 @@ func (c *Commands) chartPakacge(chartPath string) {
 
 	if found && !s3Force {
 		reportChart.Published = false
+		reportPublish = append(reportPublish, reportChart)
 		log.Warnf("|-> SKIPPING <-| The Helm Chart %s and %s version already exists!", m.Name, m.Version)
+		log.Infoln("|->  END  <-|", separator1)
 		return
 	}
 
@@ -99,15 +103,10 @@ func (c *Commands) chartPakacge(chartPath string) {
 		log.Fatalln(err)
 	}
 
-	reportChart.Force = false
-
 	if s3Force {
 		reportChart.Force = true
 		argForce = "--force"
 	}
-
-	reportChart.RepoName = chartRepo
-	reportChart.ChartURL = fmt.Sprintf("s3://%s/%s-%s.tgz", chartRepo, m.Name, m.Version)
 
 	log.Tracef("%#v, Force? %s", reportChart, argForce)
 
