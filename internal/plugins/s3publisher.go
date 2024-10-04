@@ -13,20 +13,41 @@ import (
 
 func S3Publisher(chart *chart.Metadata, chartPath, chartRepo, chartOutput string, args ...string) error {
 
+	dryRun := viper.GetBool("command.dry-run")
 	listArgs := helpers.MergeArgs(
 		[]string{
 			"s3",
 			"push",
 			fmt.Sprintf("%s/%s-%s.tgz", chartOutput, chart.Name, chart.Version),
 			chartRepo,
-			viper.GetString("helm.s3.content-type"),
-			viper.GetString("helm.s3.acl"),
 		},
 		args...)
+
+	if len(viper.GetString("helm.s3.content-type")) > 0 {
+		extraArg := []string{
+			"--content-type",
+			viper.GetString("helm.s3.content-type"),
+		}
+		listArgs = helpers.MergeArgs(listArgs, extraArg...)
+	}
+
+	if len(viper.GetString("helm.s3.acl")) > 0 {
+		extraArg := []string{
+			"--acl",
+			viper.GetString("helm.s3.acl"),
+		}
+		listArgs = helpers.MergeArgs(listArgs, extraArg...)
+	}
 
 	log.Tracef("helpers.MergeArgs: %#v", listArgs)
 
 	log.Infof("The chart publishing process has started:\nName: %s\nVersion: %s\nRepository: %s\nLocated at: %s", chart.Name, chart.Version, chartRepo, chartPath)
+
+	if dryRun {
+		log.Warnln("Dry run mode has been activated no publishing process will be executed!")
+		return nil
+	}
+
 	out, err := exec.Command("helm", listArgs...).Output()
 	if errors.Is(err, exec.ErrDot) {
 		log.Fatal(err, out)

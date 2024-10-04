@@ -65,7 +65,6 @@ func (c *Commands) chartPakacge(chartPath string) {
 		chartOutput = viper.GetString("output.path")
 		chartRepo   = viper.GetString("chart.repo")
 		s3Force     = viper.GetBool("helm.s3.force")
-		dryRun      = viper.GetBool("command.dry-run")
 		separator1  = strings.Repeat("=", 80)
 		separator2  = strings.Repeat("-", 80)
 		argForce    = ""
@@ -111,13 +110,9 @@ func (c *Commands) chartPakacge(chartPath string) {
 
 	log.Tracef("%#v, Force? %s", reportChart, argForce)
 
-	if !dryRun {
-		if err := plugins.S3Publisher(m, chartPath, chartRepo, chartOutput, argForce); err != nil {
-			reportChart.Published = false
-			log.Fatalln(err)
-		}
-	} else {
-		log.Warnln("Dry run mode has been activated no publishing process will be executed!")
+	if err := plugins.S3Publisher(m, chartPath, chartRepo, chartOutput, argForce); err != nil {
+		reportChart.Published = false
+		log.Fatalln(err)
 	}
 
 	reportPublish = append(reportPublish, reportChart)
