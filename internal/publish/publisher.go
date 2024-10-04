@@ -81,6 +81,7 @@ func (c *Commands) chartPakacge(chartPath string) {
 	reportChart.ChartVersion = m.Version
 	reportChart.GitLsTree = viper.GetBool("git.lsTree")
 	reportChart.Force = s3Force
+	reportChart.RepoName = chartRepo
 	reportChart.ChartURL = fmt.Sprintf("s3://%s/%s-%s.tgz", chartRepo, m.Name, m.Version)
 
 	found, err := helm.Search(m.Name, m.Version)
