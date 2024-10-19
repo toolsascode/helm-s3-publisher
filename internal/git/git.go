@@ -16,7 +16,7 @@ import (
 
 func LsTree(path string) []string {
 
-	out, err := exec.Command("git", "-C", path, "ls-tree", "-r", "--name-only", "HEAD").Output()
+	out, err := exec.Command("git", "-C", path, "ls-tree", "-r", "--name-only", "HEAD..").Output()
 	if errors.Is(err, exec.ErrDot) {
 		log.Fatal(err, out)
 		return nil
