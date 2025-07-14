@@ -2,7 +2,7 @@ module github.com/toolsascode/helm-s3-publisher
 
 go 1.24.0
 
-require helm.sh/helm/v3 v3.18.3
+require helm.sh/helm/v3 v3.18.4
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.6 // indirect
