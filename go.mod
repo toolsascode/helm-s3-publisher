@@ -2,7 +2,7 @@ module github.com/toolsascode/helm-s3-publisher
 
 go 1.24.0
 
-require helm.sh/helm/v3 v3.18.4
+require helm.sh/helm/v3 v3.19.0
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.6 // indirect
@@ -25,17 +25,17 @@ require (
 )
 
 require (
-	github.com/Masterminds/semver/v3 v3.3.0 // indirect
+	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/muesli/mango-cobra v1.2.0
 	github.com/muesli/roff v0.1.0
 	github.com/sirupsen/logrus v1.9.3
-	github.com/spf13/cobra v1.9.1
-	github.com/spf13/pflag v1.0.6 // indirect
+	github.com/spf13/cobra v1.10.1
+	github.com/spf13/pflag v1.0.9 // indirect
 	github.com/spf13/viper v1.20.1
-	golang.org/x/sys v0.33.0 // indirect
-	golang.org/x/text v0.26.0
+	golang.org/x/sys v0.35.0 // indirect
+	golang.org/x/text v0.28.0
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	sigs.k8s.io/yaml v1.5.0
+	sigs.k8s.io/yaml v1.6.0
 )
