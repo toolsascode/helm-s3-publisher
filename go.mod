@@ -2,7 +2,7 @@ module github.com/toolsascode/helm-s3-publisher
 
 go 1.24.0
 
-require helm.sh/helm/v3 v3.18.4
+require helm.sh/helm/v3 v3.19.0
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.6 // indirect
@@ -24,7 +24,7 @@ require (
 )
 
 require (
-	github.com/Masterminds/semver/v3 v3.3.0 // indirect
+	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/muesli/mango-cobra v1.2.0
