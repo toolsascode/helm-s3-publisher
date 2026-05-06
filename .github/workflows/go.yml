@@ -21,7 +21,7 @@ jobs:
       - name: Build
         run: go build -o helm-s3-publisher -v ./cmd/helm-s3-publisher
       - name: Installing Helm
-        uses: azure/setup-helm@v4
+        uses: azure/setup-helm@v5
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: Helm Installing Plugin
